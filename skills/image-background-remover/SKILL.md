@@ -11,7 +11,7 @@ description: 이미지에서 배경을 제거하고 투명 PNG로 변환하는 s
 
 1. **배경 제거**: 격자무늬/단색 배경을 투명하게 변환 (채도 기반)
 2. **자동 크롭**: 불필요한 여백 제거
-3. **리사이즈**: 지정 크기로 스케일링
+3. **리사이즈**: 지정 크기로 스케일링 (비율 유지 또는 강제 스트레치)
 
 ## 사용법
 
@@ -26,6 +26,7 @@ python scripts/remove_background.py <input> <output> [options]
 -s, --saturation  채도 임계값 (0.0~1.0, 기본값: 0.15)
 -p, --padding     크롭 후 여백 (픽셀)
 --no-crop         자동 크롭 비활성화
+--stretch         비율 무시하고 지정 크기로 강제 스트레치
 ```
 
 ### 예시
@@ -34,8 +35,11 @@ python scripts/remove_background.py <input> <output> [options]
 # 기본 사용 (배경 제거 + 크롭)
 python scripts/remove_background.py input.png output.png
 
-# 100x100으로 리사이즈
+# 100x100으로 리사이즈 (비율 유지)
 python scripts/remove_background.py input.png output.png -w 100 -ht 100
+
+# 100x100으로 강제 스트레치 (비율 무시)
+python scripts/remove_background.py input.png output.png -w 100 -ht 100 --stretch
 
 # 채도 임계값 조정 (더 많은 배경 제거)
 python scripts/remove_background.py input.png output.png -s 0.25
@@ -44,24 +48,21 @@ python scripts/remove_background.py input.png output.png -s 0.25
 ### Python 모듈로 사용
 
 ```python
-from scripts.remove_background import process_image, remove_low_saturation_background, auto_crop, resize_image
+from scripts.remove_background import process_image, resize_image
 
-# 전체 파이프라인
+# 전체 파이프라인 (비율 무시하고 강제 스트레치)
 result = process_image(
     'input.png',
     'output.png',
     width=100,
     height=100,
-    saturation_threshold=0.15,
-    padding=2
+    keep_aspect=False  # 비율 무시
 )
 
-# 개별 함수 사용
+# resize_image 직접 사용
 from PIL import Image
 img = Image.open('input.png')
-img = remove_low_saturation_background(img, saturation_threshold=0.20)
-img = auto_crop(img, padding=5)
-img = resize_image(img, width=64)
+img = resize_image(img, width=100, height=100, keep_aspect=False)
 img.save('output.png')
 ```
 

@@ -146,7 +146,8 @@ def process_image(
     height: int = None,
     saturation_threshold: float = 0.15,
     padding: int = 0,
-    auto_crop_enabled: bool = True
+    auto_crop_enabled: bool = True,
+    keep_aspect: bool = True
 ) -> dict:
     """
     이미지 처리 메인 함수
@@ -159,6 +160,7 @@ def process_image(
         saturation_threshold: 배경 제거 채도 임계값
         padding: 크롭 후 여백
         auto_crop_enabled: 자동 크롭 활성화 여부
+        keep_aspect: 비율 유지 여부 (False면 강제 스트레치)
     
     Returns:
         처리 결과 정보 딕셔너리
@@ -178,7 +180,7 @@ def process_image(
     
     # 3. 리사이즈
     if width or height:
-        img = resize_image(img, width, height)
+        img = resize_image(img, width, height, keep_aspect=keep_aspect)
     
     final_size = img.size
     
@@ -214,6 +216,10 @@ def main():
         '--no-crop', action='store_true',
         help='자동 크롭 비활성화'
     )
+    parser.add_argument(
+        '--stretch', action='store_true',
+        help='비율 무시하고 지정 크기로 강제 스트레치'
+    )
     
     args = parser.parse_args()
     
@@ -224,7 +230,8 @@ def main():
         height=args.height,
         saturation_threshold=args.saturation,
         padding=args.padding,
-        auto_crop_enabled=not args.no_crop
+        auto_crop_enabled=not args.no_crop,
+        keep_aspect=not args.stretch
     )
     
     print(f"처리 완료!")
