@@ -58,7 +58,9 @@
 | Zeal | 열정 (자원) |
 | Ascension | 승천 |
 | Block Chance | 방패막기 확률 |
-| Disciple's Oath | 제자 서약 |
+| Disciple's Oath / Disciple Oath | 사도 맹세 |
+| Disciple Skill | 사도 스킬 |
+| Disciple | 사도 (서약/스킬 태그) |
 | Crusader's Oath | 성전사 서약 |
 | Zealot's Oath | 광신자 서약 |
 
