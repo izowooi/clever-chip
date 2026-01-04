@@ -24,6 +24,10 @@ COLOR_NAME_TO_INDEX = {v: k for k, v in VALID_COLORS.items() if k != 0}
 
 REQUIRED_FIELDS = ["id", "title", "hint", "category", "difficulty", "size", "palette", "grid"]
 
+# 그리드 크기 설정 (가로 25, 세로 20)
+GRID_WIDTH = 25
+GRID_HEIGHT = 20
+
 
 def validate_nonogram(data: dict[str, Any]) -> tuple[bool, list[str]]:
     """
@@ -42,9 +46,9 @@ def validate_nonogram(data: dict[str, Any]) -> tuple[bool, list[str]]:
     if errors:
         return False, errors
     
-    # 2. size 검증 (15x15 고정)
-    if data["size"] != [15, 15]:
-        errors.append(f"size는 [15, 15]여야 합니다. 현재: {data['size']}")
+    # 2. size 검증 (25x20 고정: 가로 25, 세로 20)
+    if data["size"] != [GRID_WIDTH, GRID_HEIGHT]:
+        errors.append(f"size는 [{GRID_WIDTH}, {GRID_HEIGHT}]여야 합니다. 현재: {data['size']}")
     
     # 3. difficulty 검증 (1-10)
     if not isinstance(data["difficulty"], int) or not (1 <= data["difficulty"] <= 10):
@@ -59,17 +63,17 @@ def validate_nonogram(data: dict[str, Any]) -> tuple[bool, list[str]]:
             if color not in COLOR_NAME_TO_INDEX:
                 errors.append(f"유효하지 않은 색상: {color}. 유효한 색상: {list(COLOR_NAME_TO_INDEX.keys())}")
     
-    # 5. grid 검증
+    # 5. grid 검증 (20행, 25열)
     grid = data["grid"]
-    if not isinstance(grid, list) or len(grid) != 15:
-        errors.append(f"grid는 15행이어야 합니다. 현재: {len(grid) if isinstance(grid, list) else 'not a list'}행")
+    if not isinstance(grid, list) or len(grid) != GRID_HEIGHT:
+        errors.append(f"grid는 {GRID_HEIGHT}행이어야 합니다. 현재: {len(grid) if isinstance(grid, list) else 'not a list'}행")
     else:
         for row_idx, row in enumerate(grid):
-            if not isinstance(row, list) or len(row) != 15:
-                errors.append(f"grid[{row_idx}]는 15열이어야 합니다. 현재: {len(row) if isinstance(row, list) else 'not a list'}열")
+            if not isinstance(row, list) or len(row) != GRID_WIDTH:
+                errors.append(f"grid[{row_idx}]는 {GRID_WIDTH}열이어야 합니다. 현재: {len(row) if isinstance(row, list) else 'not a list'}열")
     
     # 6. grid 값 검증
-    if isinstance(grid, list) and len(grid) == 15:
+    if isinstance(grid, list) and len(grid) == GRID_HEIGHT:
         # palette에 해당하는 색상 인덱스 계산
         valid_indices = {0}  # empty는 항상 허용
         if isinstance(palette, list) and len(palette) == 2:
