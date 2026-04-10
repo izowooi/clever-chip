@@ -11,4 +11,6 @@ description: 디아블로4 월드보스 시간표 사이트에서 데이터 수�
 6. 다음 정보를 추출: 보스 이름, 출현 시간
 7. ~/diablo4/worldboss_data.json 에 타임스탬프와 함께 저장 (기존 데이터에 append)
 8. 이전 데이터와 비교해서 변경사항이 있으면 ~/diablo4/changes.md 에 기록
+9. 작업을 마친후에는 탭그룹을 닫아주세요.
+
 빈도: Every 6 hours
