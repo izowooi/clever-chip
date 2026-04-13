@@ -23,7 +23,7 @@ Claude의 주간 한도 사용량을 브라우저로 확인하고, 결과를 텍
 5. 만약 로그인이 안 되어 있거나 페이지 로드 실패 시, 에러를 기록한다.
 
 ### Step 3: 로그 파일에 기록
-1. 로그 파일 경로: `claude-usage-log.txt` (현재 작업 디렉토리의 outputs 폴더에 저장)
+1. 로그 파일 경로: `~/claude/claude-usage-logger/outputs/claude-usage-log.txt` (현재 작업 디렉토리의 outputs/claude-usage-log.txt )
 2. bash 명령어로 현재 시각(KST)을 구하고, 다음 형식으로 append 한다:
 
 ```
