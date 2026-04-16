@@ -745,12 +745,15 @@ git clone https://github.com/사용자이름/프로젝트이름.git
 
 ```mermaid
 gitGraph
-    commit id: "프로젝트 시작"
-    commit id: "로그인 화면 추가"
-    commit id: "DB 연결"
-    commit id: "게시판 기능 완성"
-    commit id: "디자인 수정"
+    commit id: "init project"
+    commit id: "add login UI"
+    commit id: "connect DB"
+    commit id: "add board"
+    commit id: "fix design"
 ```
+
+> 각 동그라미가 하나의 커밋(세이브 포인트)입니다.  
+> init project → 로그인 화면 추가 → DB 연결 → 게시판 기능 완성 → 디자인 수정
 
 ```bash
 # 1. 변경된 파일을 "저장할 목록"에 추가 (재료 준비)
@@ -831,16 +834,19 @@ git pull
 
 ```mermaid
 gitGraph
-    commit id: "메인 레시피"
-    commit id: "기본 기능 완성"
-    branch feature/토마토소스
-    checkout feature/토마토소스
-    commit id: "토마토소스 실험"
-    commit id: "양 조절"
+    commit id: "main recipe"
+    commit id: "base done"
+    branch feature/tomato-sauce
+    checkout feature/tomato-sauce
+    commit id: "try tomato"
+    commit id: "adjust amount"
     checkout main
-    merge feature/토마토소스 id: "실험 성공! 합치기"
-    commit id: "다음 작업"
+    merge feature/tomato-sauce id: "merge experiment"
+    commit id: "next task"
 ```
+
+> main(공식 레시피)에서 feature/tomato-sauce(실험 브랜치)를 만들어 토마토소스를 시도하고,  
+> 성공하면 다시 main에 합칩니다(merge). 실패하면? 브랜치만 버리면 원본은 무사!
 
 | 용어 | 설명 | 비유 |
 |------|------|------|
