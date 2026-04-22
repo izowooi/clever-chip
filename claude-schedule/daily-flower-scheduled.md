@@ -75,7 +75,6 @@ description: 매일 하나의 꽃을 선정하여 꽃말, 이야기, 오늘의 �
 - 최근 14일 파일 조회 실패 시 경고 로그만 남기고 진행
 
 ## Settings
-
-- 빈도: Every day at 22:00 (KST)
-- 모델: Claude Sonnet
 - Working folder: ~/claude/daily-flower/
+- 빈도: Every day at 06:00 (KST)
+- 모델: Claude Sonnet 4.6
